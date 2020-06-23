@@ -1,0 +1,2 @@
+altgraph==0.17
+click==7.1.2
