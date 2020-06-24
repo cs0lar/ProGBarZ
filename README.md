@@ -1,2 +1,2 @@
 # ProgGBarZ
-CLI for creating task lists with associated progress bars.
+Create task lists with associated progress bars.
