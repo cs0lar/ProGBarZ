@@ -1,2 +1,4 @@
-__pycache__/
-*.egg-info/
+.cache/
+*.marko.js
+package-lock.json
+node_modules/

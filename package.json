@@ -1,0 +1,30 @@
+{
+  "name": "progbarz",
+  "version": "0.0.1",
+  "description": "Create task lists with associated progress bars",
+  "main": "server.js",
+  "scripts": {
+    "test": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cs0lar/ProGBarZ.git"
+  },
+  "keywords": [
+    "progressbars",
+    "fastify",
+    "tasks"
+  ],
+  "author": "cristiano.solarino@gmail.com",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/cs0lar/ProGBarZ/issues"
+  },
+  "homepage": "https://github.com/cs0lar/ProGBarZ#readme",
+  "dependencies": {
+    "fastify": "^2.15.0",
+    "marko": "^4.22.0",
+    "milligram": "^1.4.1",
+    "point-of-view": "^3.8.0"
+  }
+}
