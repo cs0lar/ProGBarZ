@@ -22,9 +22,12 @@
   },
   "homepage": "https://github.com/cs0lar/ProGBarZ#readme",
   "dependencies": {
+    "dotenv": "^8.2.0",
     "fastify": "^2.15.0",
+    "fastify-plugin": "^1.6.1",
     "marko": "^4.22.0",
     "milligram": "^1.4.1",
-    "point-of-view": "^3.8.0"
+    "point-of-view": "^3.8.0",
+    "sqlite3": "^4.2.0"
   }
 }
