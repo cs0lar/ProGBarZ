@@ -29,7 +29,7 @@ fastify.register(require('./db'), {
 
 fastify.get('/', async (request, reply) => {
 	// prep title
-	const title = await text('ProGBarZ', {font: 'Speed'})
+	const title = await text('ProGBarZ', {font: 'Lean'})
 	// load projects
 	const sql = 'SELECT id, name FROM pgbz_project ORDER BY name'
 	fastify.db.all(sql, [], (err, rows) => {
