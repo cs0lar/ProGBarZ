@@ -4,10 +4,29 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.0/milligram.css">
+
+	<style>
+        pre.progbarz-title {
+			border-left-color: transparent;
+			background: transparent;
+		}	
+		pre.progbarz-title code {
+			background: transparent;
+		}
+    </style>
     
     <title>Marko Example</title>
 </head>
 <body>
- 	<h1>Hello ${input.hello}</h1>
+ 	<pre class="progbarz-title">
+ 		<code>${input.title}</code>
+ 	</pre>
+
+ 	<if(input.projects)>
+	 	<projectslist projects=input.projects/>
+	</if>
+
+    <script src="/public/js/progressbar.min.js"></script>
+    <script src="/public/js/main.js"></script>
 </body>
 </html>

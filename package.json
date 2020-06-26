@@ -25,9 +25,12 @@
     "dotenv": "^8.2.0",
     "fastify": "^2.15.0",
     "fastify-plugin": "^1.6.1",
+    "fastify-static": "^2.7.0",
+    "figlet": "^1.4.0",
     "marko": "^4.22.0",
     "milligram": "^1.4.1",
     "point-of-view": "^3.8.0",
+    "progressbar.js": "^1.1.0",
     "sqlite3": "^4.2.0"
   }
 }
