@@ -1,12 +1,27 @@
+static function handleClick(increment, event) {
+  	event.preventDefault();
+  	console.log("Clicked!", increment);
+}
+
 <div class="container projects">
 
     <for|project| of=input.projects>
         <div class="row">
             <div class="column">${project.name}</div>
+            <div class="column left">
+            	<glyph glyph="<<" tip="-5%" on-click(handleClick, -5)/>
+            	<glyph glyph="<" tip="-1%" on-click(handleClick, -1)/>
+            </div> 
             <div class="column">
-                <div class="progress" id="progress-${project.id}"></div>
+                <div class="progress" id="progress-${project.id}" ></div>
             </div>
-            <div class="column"></div>
+            <div class="column right">
+            	<glyph glyph=">" tip="+1%" on-click(handleClick, 1)/>
+            	<glyph glyph=">>" tip="+5%" on-click(handleClick, 5)/>
+            </div>
+            <div class="column left">
+            	<glyph glyph="×" tip="delete" size="xlarge"/>
+            </div>
         </div>
     </for>
 </div>
