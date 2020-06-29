@@ -8,9 +8,14 @@ class ProGBarZ {
 	init() {
 		const self = this
 		window.onload = () => {
-			document.getElementById('incr-1').onclick = (event) => {
-				self.increment('.progress', -1)
-			}
+			var incr = document.querySelectorAll("[id^='incr']")
+			incr.forEach( (e) => {
+				e.onclick = (event) => {
+					const selector = '.progress'
+					const value = parseInt(e.id.substring('incr'.length))
+					self.increment(selector, value)
+				}
+			} )
 		}
 	}
 
