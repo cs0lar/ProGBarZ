@@ -30,18 +30,17 @@ fastify.register(require('./db'), {
 fastify.get('/', async (request, reply) => {
 	// prep title
 	const title = await text('ProGBarZ', {font: 'Lean'})
-	// load projects
-	const sql = 'SELECT id, name FROM pgbz_project ORDER BY name'
+	// load tasks
+	const sql = 'SELECT id, name FROM pgbz_task ORDER BY name'
 	fastify.db.all(sql, [], (err, rows) => {
 		if (err) {
 			fastify.log.error(err)
 			reply.code(500)
 		}
 		else {
-			reply.view('progbarz.marko', { projects: rows, title: title})
+			reply.view('progbarz.marko', { tasks: rows, title: title})
 		}
 	})
-	return reply
 })
 
 

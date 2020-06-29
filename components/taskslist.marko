@@ -1,14 +1,14 @@
-<div class="container projects">
+<div class="container tasks">
 
-    <for|project| of=input.projects>
+    <for|task| of=input.tasks>
         <div class="row">
-            <div class="column">${project.name}</div>
+            <div class="column">${task.name}</div>
             <div class="column left">
             	<glyph glyph="<<" id="incr-5" tip="-5%"/>
             	<glyph glyph="<" id="incr-1" tip="-1%"/>
             </div> 
             <div class="column">
-                <div class="progress" id=`progress-${project.id}` ></div>
+                <div class="progress" id=`progress-${task.id}` ></div>
             </div>
             <div class="column right">
             	<glyph glyph=">" id="incr+1" tip="+1%"/>

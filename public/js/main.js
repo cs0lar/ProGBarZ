@@ -11,6 +11,8 @@ class ProGBarZ {
 			var incr = document.querySelectorAll("[id^='incr']")
 			incr.forEach( (e) => {
 				e.onclick = (event) => {
+					// TODO: get the correct selector
+					// TODO: make sure all future buttons get the listener attached
 					const selector = '.progress'
 					const value = parseInt(e.id.substring('incr'.length))
 					self.increment(selector, value)
