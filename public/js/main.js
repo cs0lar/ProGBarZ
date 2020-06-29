@@ -1,23 +1,50 @@
 class ProGBarZ {
 	constructor() {
 		this.barz = {}
-		this.add('.progress', 0.5)
 		this.init()
 	}
 
 	init() {
 		const self = this
 		window.onload = () => {
-			var incr = document.querySelectorAll("[id^='incr']")
+			// add handlers for bar update buttons
+			var incr = document.querySelectorAll("[id^='prog-incr']")
 			incr.forEach( (e) => {
 				e.onclick = (event) => {
-					// TODO: get the correct selector
 					// TODO: make sure all future buttons get the listener attached
-					const selector = '.progress'
-					const value = parseInt(e.id.substring('incr'.length))
+					const row = e.closest("div[id^='prog-row-']")
+					const rowId = row.id.substring('prog-row-'.length)
+					const selector = `#prog-progress-${rowId}`
+					const value = parseInt(e.id.substring('prog-incr'.length))
 					self.increment(selector, value)
 				}
 			} )
+			// add handler for add new task button
+			document.querySelector('#prog-add').onclick = (event) => {
+				var taskName = prompt('Enter task: ')
+				// save the task
+				const url = '/add'
+				const params = {
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({
+						"task_name": taskName
+					}),
+					method: 'POST'
+				}
+				fetch(url, params)
+				.then( (data) => { return data.json() })
+				.then( (res) => { console.log(res) })
+				.catch( (err) => {
+					console.log(err)
+				})
+			}
+			// create and add all the bars in the DOM
+			var containers = document.querySelectorAll("[id^='prog-progress-']")
+			containers.forEach( (e) => {
+				self.add(`#${e.id}`, e.getAttribute('data-progress'))
+			})
 		}
 	}
 
@@ -55,9 +82,8 @@ class ProGBarZ {
 
 	increment(selector, percent) {
 		const bar = this.barz[selector].bar
-
 		if (bar) {
-			const value = this.barz[selector].value + percent*0.01
+			const value = parseFloat(this.barz[selector].value) + parseFloat(percent)*0.01
 			bar.set(value)
 			this.barz[selector].value = value
 		}

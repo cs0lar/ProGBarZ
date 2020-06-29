@@ -31,13 +31,35 @@ fastify.get('/', async (request, reply) => {
 	// prep title
 	const title = await text('ProGBarZ', {font: 'Lean'})
 	// load tasks
-	const sql = 'SELECT id, name FROM pgbz_task ORDER BY name'
+	const sql = 'SELECT id, name, progress FROM pgbz_task ORDER BY name'
 	fastify.db.all(sql, [], (err, rows) => {
 		if (err) {
 			fastify.log.error(err)
 			rows = []
 		}
 		reply.view('progbarz.marko', { tasks: rows, title: title})
+	})
+	return reply
+})
+
+fastify.post('/add', async (request, reply) => {
+	// retrieve the task name 
+	const taskName = request.body.task_name
+	// create and persist a new task
+	const sql = 'INSERT INTO pgbz_task(name, description, created_at, updated_at, progress) VALUES (?, ?, ?, ?, ?)'
+	const now = new Date().getTime()
+	fastify.db.run(sql, [taskName, '', now, now, 0], (err) => {
+		if (err) {
+			fastify.log.error(err)
+			reply.code(500)
+			     .type('text/plain')
+			     .send(err.message)
+		}
+		else {
+			reply.code(201)
+			     .header('Content-Type', 'application/json; charset=utf-8')
+				 .redirect('/')
+		}	
 	})
 	return reply
 })

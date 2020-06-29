@@ -1,31 +1,31 @@
 <div class="container tasks">
 
     <for|task| of=input.tasks>
-        <div class="row">
+        <div class="row" id=`prog-row-${task.id}`>
             <div class="column">${task.name}</div>
             <div class="column left">
-            	<glyph glyph="<<" id="incr-5" tip="-5%"/>
-            	<glyph glyph="<" id="incr-1" tip="-1%"/>
+            	<glyph glyph="<<" id="prog-incr-5" tip="-5%" tippos="top"/>
+            	<glyph glyph="<" id="prog-incr-1" tip="-1%" tippos="top"/>
             </div> 
             <div class="column">
-                <div class="progress" id=`progress-${task.id}` ></div>
+                <div class="progress" id=`prog-progress-${task.id}` data-progress=`${task.progress}`></div>
             </div>
             <div class="column right">
-            	<glyph glyph=">" id="incr+1" tip="+1%"/>
-            	<glyph glyph=">>" id="incr+5" tip="+5%"/>
+            	<glyph glyph=">" id="prog-incr+1" tip="+1%" tippos="top"/>
+            	<glyph glyph=">>" id="prog-incr+5" tip="+5%" tippos="top"/>
             </div>
             <div class="column left">
-            	<glyph glyph="×" tip="delete" size="xlarge"/>
-            </div>
-        </div>
-        <div class="row">
-            <div class="column"></div>
-            <div class="column"></div>
-            <div class="column"></div>
-            <div class="column"></div>
-            <div class="column left">
-                <glyph glyph="+" tip="add" size="xlarge"/>
+            	<glyph glyph="×" tip="delete" id="prog-delete" size="xlarge" tippos="top"/>
             </div>
         </div>
     </for>
+    <div class="row adder">
+        <div class="column"></div>
+        <div class="column"></div>
+        <div class="column"></div>
+        <div class="column"></div>
+        <div class="column left">
+            <glyph glyph="+" tip="add" size="xlarge" id="prog-add" tippos="bottom"/>
+        </div>
+    </div>
 </div>

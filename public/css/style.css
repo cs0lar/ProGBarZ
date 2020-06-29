@@ -13,34 +13,33 @@ pre.progbarz-title code {
 		align-items: center;
 		font-size: 60%;
 }
-	.button.button-clear.glyph {
+.button.button-clear.glyph {
 	font-size: large;
-    color: rgb(153, 153, 153);  			
-	}
-	.button.button-clear.glyph:hover {
-    color: red;  			
-	}
-	.button.button-clear.glyph.xlarge {
-		font-size: x-large;
-	}
-	.progressbar-text {
-		text-align: center;
-	}
-	.column {
-		font-family: 'Saira Condensed', sans-serif;
-		font-size: larger;
-	}
-	.column.left {
-		text-align: right;
-	}
-	.column.right {
-		text-align: left
-	}
-	.tooltip {
-  	position: relative;
-  	display: inline-block;
+	color: rgb(153, 153, 153);  			
 }
-
+.button.button-clear.glyph:hover {
+	color: red;  			
+}
+.button.button-clear.glyph.xlarge {
+	font-size: x-large;
+}
+.progressbar-text {
+	text-align: center;
+}
+.column {
+	font-family: 'Saira Condensed', sans-serif;
+	font-size: larger;
+}
+.column.left {
+	text-align: right;
+}
+.column.right {
+	text-align: left
+}
+.tooltip {
+	position: relative;
+	display: inline-block;
+}
 .tooltip .tooltiptext {
   	visibility: hidden;
   	width: 50px;
@@ -51,8 +50,16 @@ pre.progbarz-title code {
   	padding: 5px 0;
   	position: absolute;
   	z-index: 1;
-  	bottom: 150%;
+  	bottom: 100%;
   	left: 100%;
+  	margin-left: -60px;
+}
+
+.tooltip .tooltiptext.bottom {
+	position: absolute;
+  	z-index: 1;
+  	top: 100%;
+  	left: 96%;
   	margin-left: -60px;
 }
 
@@ -67,6 +74,15 @@ pre.progbarz-title code {
   	border-color: rgb(153, 153, 153) transparent transparent transparent;
 }
 
+.tooltip .tooltiptext.bottom::after {
+	top: 0;
+	bottom: 100%;
+}
+
 .tooltip:hover .tooltiptext {
   	visibility: visible;
+}
+
+.row {
+	padding: 10px;
 }
