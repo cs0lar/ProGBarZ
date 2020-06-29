@@ -35,12 +35,11 @@ fastify.get('/', async (request, reply) => {
 	fastify.db.all(sql, [], (err, rows) => {
 		if (err) {
 			fastify.log.error(err)
-			reply.code(500)
+			rows = []
 		}
-		else {
-			reply.view('progbarz.marko', { tasks: rows, title: title})
-		}
+		reply.view('progbarz.marko', { tasks: rows, title: title})
 	})
+	return reply
 })
 
 
