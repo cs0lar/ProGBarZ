@@ -1,13 +1,23 @@
 <!doctype html>
 <html>
 <head>
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@100&display=swap">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.0/milligram.css">
-    
-    <title>Marko Example</title>
+	<link rel="stylesheet" href="/public/css/style.css">
+
+    <title>ProGBarZ</title>
 </head>
 <body>
- 	<h1>Hello ${input.hello}</h1>
+ 	<pre class="progbarz-title">
+ 		<code>${input.title}</code>
+ 	</pre>
+
+ 	<if(input.tasks)>
+	 	<taskslist tasks=input.tasks/>
+	</if>
+
+    <script src="/public/js/progressbar.min.js"></script>
+    <script src="/public/js/main.js"></script>
 </body>
 </html>
