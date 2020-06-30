@@ -1,6 +1,6 @@
 <div class="tooltip">
-	<if(input.size)>
-		<div class=`button button-clear glyph ${input.size}` id=`${input.id}`>${input.glyph}</div>
+	<if(input.size && input.task)>
+		<div class=`button button-clear glyph ${input.size}` id=`${input.id}` data-task=`${input.task}`>${input.glyph}</div>
 	</if>
 	<else>
 		<div class=`button button-clear glyph` id=`${input.id}`>${input.glyph}</div>

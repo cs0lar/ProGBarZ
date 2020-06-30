@@ -64,6 +64,26 @@ fastify.post('/add', async (request, reply) => {
 	return reply
 })
 
+fastify.post('/remove', async (request, reply) => {
+	const taskId = request.body.task_id
+	const sql = 'DELETE from pgbz_task WHERE id=?'
+
+	fastify.db.run(sql, taskId, (err) => {
+		if (err) {
+			fastify.log.error(err)
+			reply.code(500)
+			     .type('text/plain')
+			     .send(err.message)
+		}
+		else {
+			reply.code(200)
+			     .header('Content-Type', 'application/json; charset=utf-8')
+				 .send({msg: 'OK'})
+		}
+	})
+	return reply
+})
+
 
 const start = async () => {
 	try {
