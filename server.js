@@ -31,7 +31,7 @@ fastify.get('/', async (request, reply) => {
 	// prep title
 	const title = await text('ProGBarZ', {font: 'Lean'})
 	// load tasks
-	const sql = 'SELECT id, name, progress FROM pgbz_task ORDER BY name'
+	const sql = 'SELECT id, name, progress FROM pgbz_task ORDER BY progress DESC'
 	fastify.db.all(sql, [], (err, rows) => {
 		if (err) {
 			fastify.log.error(err)
@@ -84,6 +84,26 @@ fastify.post('/remove', async (request, reply) => {
 	return reply
 })
 
+fastify.post('/update', async(request, reply) => {
+	const taskProgress = request.body.task_progress
+	const taskId       = request.body.task_id
+	const sql = 'UPDATE pgbz_task SET progress=? WHERE id=?'
+
+	fastify.db.run(sql, [taskProgress, taskId], (err) => {
+		if (err) {
+			fastify.log.error(err)
+			reply.code(500)
+			     .type('text/plain')
+			     .send(err.message)
+		}
+		else {
+			reply.code(200)
+			     .header('Content-Type', 'application/json; charset=utf-8')
+				 .send({msg: 'OK'})
+		}
+	})
+	return reply
+})
 
 const start = async () => {
 	try {

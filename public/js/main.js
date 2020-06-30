@@ -16,7 +16,7 @@ class ProGBarZ {
 					const rowId = row.id.substring('prog-row-'.length)
 					const selector = `#prog-progress-${rowId}`
 					const value = parseInt(e.id.substring('prog-incr'.length))
-					self.increment(selector, value)
+					self.increment(selector, value, rowId)
 				}
 			} )
 			// add handler for add new task button
@@ -116,16 +116,34 @@ class ProGBarZ {
 		    	bar.setText(Math.round(bar.value() * 100) + ' %');
 		  	}
 		})
-		bar.animate(value);
-		this.barz[selector] = {bar: bar, value: value} 
+		bar.animate(value * 0.01);
+		this.barz[selector] = {bar: bar, value: value * 0.01} 
 	}
 
-	increment(selector, percent) {
+	increment(selector, percent, taskId) {
 		const bar = this.barz[selector].bar
 		if (bar) {
 			const value = parseFloat(this.barz[selector].value) + parseFloat(percent)*0.01
 			bar.set(value)
 			this.barz[selector].value = value
+			// persist the update
+			const url = '/update'
+			const params = {
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					'task_progress': Math.round(value * 100),
+					'task_id': taskId
+				}),
+				method: 'POST'
+			}
+			fetch(url, params)
+			.then( (data) => { return data.json() } )
+			.then( (res) => {} )
+			.catch( (err) => {
+				console.log(err)
+			} )
 		}
 	}
 }
