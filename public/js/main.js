@@ -35,7 +35,10 @@ class ProGBarZ {
 				}
 				fetch(url, params)
 				.then( (data) => { return data.json() })
-				.then( (res) => { console.log(res) })
+				.then( (res) => { 
+					if (res.hasOwnProperty('msg') && res.msg == 'OK')
+						window.location.href = '/'
+				})
 				.catch( (err) => {
 					console.log(err)
 				})

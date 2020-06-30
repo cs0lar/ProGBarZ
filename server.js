@@ -58,7 +58,7 @@ fastify.post('/add', async (request, reply) => {
 		else {
 			reply.code(201)
 			     .header('Content-Type', 'application/json; charset=utf-8')
-				 .redirect('/')
+				 .send({msg: 'OK'})
 		}	
 	})
 	return reply
