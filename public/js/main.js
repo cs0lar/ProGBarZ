@@ -131,26 +131,28 @@ class ProGBarZ {
 		const bar = this.barz[selector].bar
 		if (bar) {
 			const value = parseFloat(this.barz[selector].value) + parseFloat(percent)*0.01
-			bar.set(value)
-			this.barz[selector].value = value
-			// persist the update
-			const url = '/update'
-			const params = {
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify({
-					'task_progress': Math.round(value * 100),
-					'task_id': taskId
-				}),
-				method: 'POST'
+			if (value >= 0 && value <= 1) {
+				bar.set(value)
+				this.barz[selector].value = value
+				// persist the update
+				const url = '/update'
+				const params = {
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({
+						'task_progress': Math.round(value * 100),
+						'task_id': taskId
+					}),
+					method: 'POST'
+				}
+				fetch(url, params)
+				.then( (data) => { return data.json() } )
+				.then( (res) => {} )
+				.catch( (err) => {
+					console.log(err)
+				} )
 			}
-			fetch(url, params)
-			.then( (data) => { return data.json() } )
-			.then( (res) => {} )
-			.catch( (err) => {
-				console.log(err)
-			} )
 		}
 	}
 
