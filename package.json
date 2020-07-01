@@ -4,6 +4,7 @@
   "description": "Create task lists with associated progress bars",
   "main": "server.js",
   "scripts": {
+    "start": "node server.js",
     "test": ""
   },
   "repository": {
