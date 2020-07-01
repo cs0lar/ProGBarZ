@@ -86,10 +86,14 @@ fastify.post('/remove', async (request, reply) => {
 
 fastify.post('/update', async(request, reply) => {
 	const taskProgress = request.body.task_progress
+	const taskName     = request.body.task_name
 	const taskId       = request.body.task_id
-	const sql = 'UPDATE pgbz_task SET progress=? WHERE id=?'
+	const targetField  = taskProgress ? 'progress' : 'name'
+	const target       = taskProgress || taskName
 
-	fastify.db.run(sql, [taskProgress, taskId], (err) => {
+	const sql = `UPDATE pgbz_task SET ${targetField}=? WHERE id=?`
+
+	fastify.db.run(sql, [target, taskId], (err) => {
 		if (err) {
 			fastify.log.error(err)
 			reply.code(500)

@@ -2,7 +2,7 @@
 
     <for|task| of=input.tasks>
         <div class="row" id=`prog-row-${task.id}`>
-            <div class="column">${task.name}</div>
+            <div class="column editable" contenteditable="true" data-task=`${task.id}`>${task.name}</div>
             <div class="column left">
             	<glyph glyph="<<" id="prog-incr-5" tip="-5%" tippos="top"/>
             	<glyph glyph="<" id="prog-incr-1" tip="-1%" tippos="top"/>

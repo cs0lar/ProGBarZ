@@ -37,8 +37,15 @@ class ProGBarZ {
 					return self.remove(taskId)
 				}
 			} )			
-
-
+			// task name edit handler
+			var editable = document.querySelectorAll('.editable')
+			editable.forEach( (e) => {
+				e.onblur = (event) => {
+					var taskId = e.getAttribute('data-task')
+					var taskName = e.textContent
+					return self.update(taskId, taskName)
+				}
+			} )			
 		}
 	}
 
@@ -145,6 +152,26 @@ class ProGBarZ {
 				console.log(err)
 			} )
 		}
+	}
+
+	update(taskId, taskName) {
+		const url = '/update'
+		const params = {
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				'task_id': taskId,
+				'task_name': taskName
+			}),
+			method: 'POST'
+		}
+		fetch(url, params)
+		.then( (data) => { return data.json() } )
+		.then( (res) => { } )
+		.catch( (err) => {
+			console.log(err)
+		} )
 	}
 }
 
