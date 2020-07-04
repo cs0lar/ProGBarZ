@@ -130,8 +130,10 @@ class ProGBarZ {
 	increment(selector, percent, taskId) {
 		const bar = this.barz[selector].bar
 		if (bar) {
-			const value = parseFloat(this.barz[selector].value) + parseFloat(percent)*0.01
-			if (value >= 0 && value <= 1) {
+			var value = parseFloat(this.barz[selector].value) + parseFloat(percent)*0.01
+			value = Math.round(value * 100)/100
+
+			if (value >= 0.0 && value <= 1.0) {
 				bar.set(value)
 				this.barz[selector].value = value
 				// persist the update

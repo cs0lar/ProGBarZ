@@ -88,8 +88,8 @@ fastify.post('/update', async(request, reply) => {
 	const taskProgress = request.body.task_progress
 	const taskName     = request.body.task_name
 	const taskId       = request.body.task_id
-	const targetField  = taskProgress ? 'progress' : 'name'
-	const target       = taskProgress || taskName
+	const targetField  = taskName ? 'name' : 'progress'
+	const target       = taskName || taskProgress
 
 	const sql = `UPDATE pgbz_task SET ${targetField}=? WHERE id=?`
 
