@@ -2,7 +2,7 @@
 Create task lists with associated progress bars.
 
 <div align="center">
-<img src="https://github.com/cs0lar/ProGBarZ/raw/master/screenshot.png" />
+<img src="https://github.com/cs0lar/ProGBarZ/raw/master/screenshot.png" width="800" height="auto"/>
 </div>
 
 # Getting Started
