@@ -1,6 +1,10 @@
 # ProGBarZ
 Create task lists with associated progress bars.
 
+<div align="center">
+<img src="https://github.com/cs0lar/ProGBarZ/raw/master/screenshot.png" width="650" height="auto"/>
+</div>
+
 # Getting Started
 1. `npm install`
 2. Create an `.env` file (see `.env.example`) and specify where ProGBarZ should create the database data file (e.g. `~/.progbarz`)
