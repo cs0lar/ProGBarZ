@@ -25,7 +25,7 @@ When invoked, the command will process in ascending sequence all the files in th
 
 Specifying the optional parameter `--start=<number>` to the `migrate` command will begin migration from the file `migration_<number>.sql`.
 ## Example
-Run all migrations found in the project's `sql` direction starting from `migration_0012.sql` where the target database is in `/opt/mydb.sqlite`:
+Run all migrations found in the project's `sql` directory starting from `migration_0012.sql` where the target database is in `/opt/mydb.sqlite`:
 
 ```sh
 npm run migrate -- --db=/opt/mydb.sqlite --start=12
