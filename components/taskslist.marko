@@ -1,5 +1,37 @@
 <div class="container tasks">
-
+    
+    <div class="row projects">
+        <div class="column"></div>
+        <div class="column left">
+            <glyph glyph="<" id="prog-scroll-left" tip="left" tippos="top"/>
+        </div>
+        <div class="column column-20">
+            <!-- <for|project| of=input.projects>
+            
+            </for> -->
+            <div class="scrollmenu">
+              <a href="#home">Home</a>
+              <a href="#news">News</a>
+              <a href="#contact">Contact</a>
+              <a href="#about">About</a>
+              <a href="#support">Support</a>
+              <a href="#blog">Blog</a>
+              <a href="#tools">Tools</a>  
+              <a href="#base">Base</a>
+              <a href="#custom">Custom</a>
+              <a href="#more">More</a>
+              <a href="#logo">Logo</a>
+              <a href="#friends">Friends</a>
+              <a href="#partners">Partners</a>
+              <a href="#people">People</a>
+              <a href="#work">Work</a>
+            </div>
+        </div>
+        <div class="column right">
+            <glyph glyph=">" id="prog-scroll-right" tip="right" tippos="top"/>
+        </div>
+        <div class="column"></div>
+    </div>
     <for|task| of=input.tasks>
         <div class="row" id=`prog-row-${task.id}`>
             <div class="column editable" contenteditable="true" data-task=`${task.id}`>${task.name}</div>

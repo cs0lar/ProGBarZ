@@ -5,14 +5,16 @@ body {
 pre.progbarz-title {
 	border-left-color: transparent;
 	background: transparent;
+  margin-bottom: -30px;
 }	
 pre.progbarz-title code {
 	background: transparent;
 	display: flex;
-		justify-content: center;
-		align-items: center;
-		font-size: 60%;
+	justify-content: center;
+	align-items: center;
+	font-size: 60%;
 }
+
 .button.button-clear.glyph {
 	font-size: large;
 	color: rgb(153, 153, 153);  			
@@ -85,4 +87,26 @@ pre.progbarz-title code {
 
 .row {
 	padding: 10px;
+}
+
+.row.projects {
+  margin-bottom: 20px;
+}
+
+div.scrollmenu {
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+div.scrollmenu a {
+  display: inline-block;
+  color: rgb(153, 153, 153);;
+  text-align: center;
+  padding: 5px;
+  text-decoration: none;
+}
+
+div.scrollmenu a:hover {
+  /*background-color: #777;*/
+  color: red;
 }
