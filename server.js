@@ -31,17 +31,21 @@ fastify.get('/', async (request, reply) => {
 	// prep title
 	const title = await text('ProGBarZ', {font: 'Lean'})
 	// prep tasks list
-	let rows = [];
+	let tasks = [];
+	let projects = [];
 	// load tasks
 	try {
-		const sql = 'SELECT id, name, progress FROM pgbz_task ORDER BY progress DESC'
-		rows = await fastify.db.all(sql, [])
+		let sql  = 'SELECT id, name FROM pgbz_project ORDER BY name'
+		projects = await fastify.db.all(sql, []) 
+		
+		sql = 'SELECT id, name, progress FROM pgbz_task ORDER BY progress DESC'
+		tasks = await fastify.db.all(sql, [])
 	}
 	catch (err) {
 		fastify.log.error(err)
 	}
 	finally {
-		reply.view('progbarz.marko', { tasks: rows, title: title})
+		reply.view('progbarz.marko', { projects: projects, tasks: tasks, title: title})
 	}
 	return reply
 })

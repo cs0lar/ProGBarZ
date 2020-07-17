@@ -12,7 +12,9 @@
  	<pre class="progbarz-title">
  		<code>${input.title}</code>
  	</pre>
-
+ 	<if(input.projects)>
+ 		<projectslist projects=input.projects/>
+ 	</if>
  	<if(input.tasks)>
 	 	<taskslist tasks=input.tasks/>
 	</if>
