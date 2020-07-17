@@ -27,25 +27,31 @@ fastify.register(require('./db'), {
 	location: process.env.DB_LOCATION
 })
 
-fastify.get('/', async (request, reply) => {
+fastify.get('/:projectId', async (request, reply) => {
 	// prep title
 	const title = await text('ProGBarZ', {font: 'Lean'})
 	// prep tasks list
 	let tasks = [];
 	let projects = [];
-	// load tasks
+	let projectId = null;
 	try {
+		// load projects
 		let sql  = 'SELECT id, name FROM pgbz_project ORDER BY name'
 		projects = await fastify.db.all(sql, []) 
-		
-		sql = 'SELECT id, name, progress FROM pgbz_task ORDER BY progress DESC'
-		tasks = await fastify.db.all(sql, [])
+		// check if we have a project Id in the request ...
+		projectId = request.params.projectId || projects[0].id || 0
+		// ... otherwise load tasks for first project if any
+		if (projectId) {
+			// TODO: get last selected project from session or db
+			sql = 'SELECT t.id, t.name, t.progress FROM pgbz_task t, pgbz_project_tasks pt WHERE pt.project_id=? AND t.id = pt.task_id ORDER BY progress DESC'
+			tasks = await fastify.db.all(sql, [projectId])
+		}
 	}
 	catch (err) {
 		fastify.log.error(err)
 	}
 	finally {
-		reply.view('progbarz.marko', { projects: projects, tasks: tasks, title: title})
+		reply.view('progbarz.marko', { projects: projects, tasks: tasks, title: title, selected: projectId })
 	}
 	return reply
 })

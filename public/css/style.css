@@ -96,6 +96,7 @@ pre.progbarz-title code {
 div.scrollmenu {
   overflow: hidden;
   white-space: nowrap;
+  scroll-snap-type: x mandatory;
 }
 
 div.scrollmenu a {
@@ -104,9 +105,14 @@ div.scrollmenu a {
   text-align: center;
   padding: 5px;
   text-decoration: none;
+  scroll-snap-align: center;
 }
 
 div.scrollmenu a:hover {
   /*background-color: #777;*/
   color: red;
+}
+
+div.scrollmenu .selected {
+  font-weight: bold;
 }

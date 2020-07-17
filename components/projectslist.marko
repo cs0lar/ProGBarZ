@@ -7,7 +7,12 @@
         <div class="column column-20">
             <div class="scrollmenu">
                 <for|project| of=input.projects>
-                  <a data-project=`$project.id` href=`${project.name}`>${project.name}</a>
+                    <if(input.selected && project.id == input.selected)>
+                      <a class="selected" href=`/${project.id}`>${project.name}</a>
+                  </if>
+                  <else>
+                      <a href=`/${project.id}`>${project.name}</a>
+                  </else>
                 </for>
             </div>
         </div>
