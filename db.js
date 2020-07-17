@@ -33,7 +33,12 @@ async function db (fastify, options) {
 			db = new sqlite.Database(location)
 		// finally decorate the server with  
 		// the database connection details
-		fastify.decorate('db', db)
+		const promisifiedDb = {
+			run: util.promisify(db.run).bind(db),
+			all: util.promisify(db.all).bind(db),
+			close: db.close.bind(db)
+		}
+		fastify.decorate('db', promisifiedDb)
 	}
 }
 

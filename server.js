@@ -30,15 +30,19 @@ fastify.register(require('./db'), {
 fastify.get('/', async (request, reply) => {
 	// prep title
 	const title = await text('ProGBarZ', {font: 'Lean'})
+	// prep tasks list
+	let rows = [];
 	// load tasks
-	const sql = 'SELECT id, name, progress FROM pgbz_task ORDER BY progress DESC'
-	fastify.db.all(sql, [], (err, rows) => {
-		if (err) {
-			fastify.log.error(err)
-			rows = []
-		}
+	try {
+		const sql = 'SELECT id, name, progress FROM pgbz_task ORDER BY progress DESC'
+		rows = await fastify.db.all(sql, [])
+	}
+	catch (err) {
+		fastify.log.error(err)
+	}
+	finally {
 		reply.view('progbarz.marko', { tasks: rows, title: title})
-	})
+	}
 	return reply
 })
 
@@ -48,19 +52,20 @@ fastify.post('/add', async (request, reply) => {
 	// create and persist a new task
 	const sql = 'INSERT INTO pgbz_task(name, description, created_at, updated_at, progress) VALUES (?, ?, ?, ?, ?)'
 	const now = new Date().getTime()
-	fastify.db.run(sql, [taskName, '', now, now, 0], (err) => {
-		if (err) {
-			fastify.log.error(err)
-			reply.code(500)
-			     .type('text/plain')
-			     .send(err.message)
-		}
-		else {
-			reply.code(201)
-			     .header('Content-Type', 'application/json; charset=utf-8')
-				 .send({msg: 'OK'})
-		}	
-	})
+
+	try {
+		await fastify.db.run(sql, [taskName, '', now, now, 0])
+		reply.code(201)
+			 .header('Content-Type', 'application/json; charset=utf-8')
+			 .send({msg: 'OK'})	
+	}
+	catch (err) {
+		fastify.log.error(err)
+		reply.code(500)
+		     .type('text/plain')
+		     .send(err.message)
+	}
+
 	return reply
 })
 
@@ -68,19 +73,19 @@ fastify.post('/remove', async (request, reply) => {
 	const taskId = request.body.task_id
 	const sql = 'DELETE from pgbz_task WHERE id=?'
 
-	fastify.db.run(sql, taskId, (err) => {
-		if (err) {
-			fastify.log.error(err)
-			reply.code(500)
-			     .type('text/plain')
-			     .send(err.message)
-		}
-		else {
-			reply.code(200)
-			     .header('Content-Type', 'application/json; charset=utf-8')
-				 .send({msg: 'OK'})
-		}
-	})
+	try {
+		await fastify.db.run(sql, taskId)
+		reply.code(200)
+		     .header('Content-Type', 'application/json; charset=utf-8')
+			 .send({msg: 'OK'})
+	}
+	catch (err) {
+		fastify.log.error(err)
+		reply.code(500)
+		     .type('text/plain')
+		     .send(err.message)
+	}
+
 	return reply
 })
 
@@ -93,19 +98,19 @@ fastify.post('/update', async(request, reply) => {
 
 	const sql = `UPDATE pgbz_task SET ${targetField}=? WHERE id=?`
 
-	fastify.db.run(sql, [target, taskId], (err) => {
-		if (err) {
-			fastify.log.error(err)
-			reply.code(500)
-			     .type('text/plain')
-			     .send(err.message)
-		}
-		else {
-			reply.code(200)
-			     .header('Content-Type', 'application/json; charset=utf-8')
-				 .send({msg: 'OK'})
-		}
-	})
+	try {
+		await fastify.db.run(sql, [target, taskId])
+		reply.code(200)
+		     .header('Content-Type', 'application/json; charset=utf-8')
+			 .send({msg: 'OK'})
+	}
+	catch (err) {
+		fastify.log.error(err)
+		reply.code(500)
+		     .type('text/plain')
+		     .send(err.message)
+	}
+
 	return reply
 })
 
