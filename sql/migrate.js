@@ -77,22 +77,25 @@ async function migrations (dir, start) {
 		db = await newdb(args.db)
 		// get the list of migration files we need to process
 		const files = await migrations (__dirname, args.start || 0)
+		console.log(files)
 		// process each file sequentially
 		const promises = []
 		// promisified run function from database
 		const run = util.promisify(db.run).bind(db)
-		// cycle through the files to process
-		files.forEach( (file) => {
-			const sql 		 = fs.readFileSync ( path.join(__dirname, file), 'utf8')
-			const statements = sql.split (/;\s*/)
-			// cycle through each statement of the migration file
-			statements.forEach ( (statement) => {
-				if (statement && (statement.length > 0)){
-					promises.push (run(statement))}
+		db.serialize( async () => {
+			// cycle through the files to process
+			files.forEach( (file) => {
+				const sql 		 = fs.readFileSync ( path.join(__dirname, file), 'utf8')
+				const statements = sql.split (/;\s*/)
+				// cycle through each statement of the migration file
+				statements.forEach ( (statement) => {
+					if (statement && (statement.length > 0)){
+						promises.push (run(statement))}
+				} )
 			} )
+			await all (promises) 
+			console.log(`processed migrations: ${files}`)
 		} )
-		await all (promises) 
-		console.log(`processed migrations: ${files}`)
 	}
 	catch (err) {
 		console.log(err.message)
