@@ -103,6 +103,8 @@ fastify.post('/projects/add', async (request, reply) => {
 		     .type('text/plain')
 		     .send(err.message)
 	}
+
+	return reply
 })
 
 fastify.post('/tasks/remove', async (request, reply) => {
@@ -139,6 +141,29 @@ fastify.post('/tasks/update', async(request, reply) => {
 
 	try {
 		await fastify.db.run(sql, [target, now, taskId])
+		reply.code(200)
+		     .header('Content-Type', 'application/json; charset=utf-8')
+			 .send({msg: 'OK'})
+	}
+	catch (err) {
+		fastify.log.error(err)
+		reply.code(500)
+		     .type('text/plain')
+		     .send(err.message)
+	}
+
+	return reply
+})
+
+fastify.post('/projects/update', async(request, reply) => {
+	const projectId   = request.body.project_id
+	const projectName = request.body.project_name
+	const now         = new Date().getTime()
+
+	const sql = 'UPDATE pgbz_project SET name=?, updated_at=? WHERE id=?' 
+
+	try {
+		await fastify.db.run(sql, [projectName, now, projectId])
 		reply.code(200)
 		     .header('Content-Type', 'application/json; charset=utf-8')
 			 .send({msg: 'OK'})

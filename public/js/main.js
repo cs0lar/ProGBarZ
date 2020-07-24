@@ -47,11 +47,20 @@ class ProGBarZ {
 			var editable = document.querySelectorAll('.editable')
 			editable.forEach( (e) => {
 				e.onblur = (event) => {
-					var taskId = e.getAttribute('data-task')
+					var taskId   = e.getAttribute('data-task')
 					var taskName = e.textContent
 					return self.update(taskId, taskName)
 				}
 			} )			
+			// project name edit handler
+			var editableProj = document.querySelectorAll('.proj-editable')
+			editableProj.forEach( (e) => {
+				e.onblur = (event) => {
+					var projId   = e.getAttribute('data-project')
+					var projName = e.textContent
+					return self.projectUpdate(projId, projName) 
+				}
+			} )
 		}
 	}
 
@@ -203,6 +212,26 @@ class ProGBarZ {
 		fetch(url, params)
 		.then( (data) => { return data.json() } )
 		.then( (res) => { } )
+		.catch( (err) => {
+			console.log(err)
+		} )
+	}
+
+	projectUpdate(projId, projName) {
+		const url = '/projects/update'
+		const params = {
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				'project_id': projId,
+				'project_name': projName
+			}),
+			method: 'POST'
+		}
+		fetch(url, params)
+		.then( (data) => { return data.json() } )
+		.then( (res) => { })
 		.catch( (err) => {
 			console.log(err)
 		} )
