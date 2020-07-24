@@ -176,7 +176,7 @@ class ProGBarZ {
 				bar.set(value)
 				this.barz[selector].value = value
 				// persist the update
-				const url = '/update'
+				const url = '/tasks/update'
 				const params = {
 					headers: {
 						'Content-Type': 'application/json'
