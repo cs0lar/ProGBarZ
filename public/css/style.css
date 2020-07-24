@@ -95,7 +95,7 @@ pre.progbarz-title code {
   position: fixed;
   background-color: white;
   z-index: 1;
-  top: 0;
+  top: 200px;
   left: 0;
   overflow-x: hidden;
   transition: 0.5s;
@@ -114,8 +114,11 @@ pre.progbarz-title code {
 
 .sidenavopen {
   font-size: 36px;
+  top: 200px;
   color: rgb(153, 153, 153); 
-  cursor:pointer
+  cursor:pointer;
+  font-family: 'Saira Condensed', sans-serif;
+  text-decoration: none;
 }
 
 .sidenav a:hover {
