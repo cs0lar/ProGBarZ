@@ -1,24 +1,14 @@
-<div class="container projects">
-    <div class="row projects">
-        <div class="column"></div>
-        <div class="column left">
-            <glyph glyph="<" id="prog-scroll-left" tip="left" tippos="top"/>
-        </div>
-        <div class="column column-20">
-            <div class="scrollmenu">
-                <for|project| of=input.projects>
-                    <if(input.selected && project.id == input.selected)>
-                      <a class="selected" href=`/${project.id}`>${project.name}</a>
-                  </if>
-                  <else>
-                      <a href=`/${project.id}`>${project.name}</a>
-                  </else>
-                </for>
-            </div>
-        </div>
-        <div class="column right">
-            <glyph glyph=">" id="prog-scroll-right" tip="right" tippos="top"/>
-        </div>
-        <div class="column"></div>
-    </div>
+<div id="prog-projects-sidenav" class="sidenav projects">
+    <a href="javascript:void(0)" class="closebtn" onclick="PgbZ.closeNav()">&laquo;</a>
+    <for|project| of=input.projects>
+        <if(input.selected && project.id == input.selected)>
+            <a class="selected" href=`/${project.id}`>${project.name}</a>
+        </if>
+        <else>
+            <a href=`/${project.id}`>${project.name}</a>
+        </else>
+    </for>
 </div>
+
+<span class="sidenavopen" onclick="PgbZ.openNav()">&nbsp;&nbsp;&raquo;</span>
+

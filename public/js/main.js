@@ -177,6 +177,14 @@ class ProGBarZ {
 			console.log(err)
 		} )
 	}
+
+	openNav() {
+		document.getElementById('prog-projects-sidenav').style.width = '250px'
+	}
+
+	closeNav() {
+		document.getElementById('prog-projects-sidenav').style.width = '0px'
+	}
 }
 
 const PgbZ = new ProGBarZ()

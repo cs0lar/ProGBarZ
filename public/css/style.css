@@ -89,30 +89,53 @@ pre.progbarz-title code {
 	padding: 10px;
 }
 
-.row.projects {
-  margin-bottom: 20px;
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  background-color: white;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+  font-family: 'Saira Condensed', sans-serif;
 }
 
-div.scrollmenu {
-  overflow: hidden;
-  white-space: nowrap;
-  scroll-snap-type: x mandatory;
-}
-
-div.scrollmenu a {
-  display: inline-block;
-  color: rgb(153, 153, 153);;
-  text-align: center;
-  padding: 5px;
+.sidenav a {
+  padding: 8px  8px 8px 32px;
   text-decoration: none;
-  scroll-snap-align: center;
+  font-size: 25px;
+  display: block;
+  transition: 0.3s;
+  color: rgb(153, 153, 153); 
 }
 
-div.scrollmenu a:hover {
-  /*background-color: #777;*/
+.sidenavopen {
+  font-size: 36px;
+  color: rgb(153, 153, 153); 
+  cursor:pointer
+}
+
+.sidenav a:hover {
   color: red;
 }
 
-div.scrollmenu .selected {
+.sidenav a.selected {
   font-weight: bold;
+}
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+  color: rgb(153, 153, 153); 
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav { padding-top: 15px; }
+    .sidenav a { font-size: 18px; }
 }
