@@ -22,7 +22,8 @@ class ProGBarZ {
 			// add handler for add new task button
 			document.querySelector('#prog-add').onclick = (event) => {
 				var taskName = prompt('Enter task: ')
-				return self.task(taskName)
+				const projectId = document.querySelector(".selected").getAttribute('data-project')
+				return self.task(taskName, projectId)
 			}
 			// create and add all the bars in the DOM
 			var containers = document.querySelectorAll("[id^='prog-progress-']")
@@ -72,7 +73,7 @@ class ProGBarZ {
 		} )
 	}
 
-	task(taskName) {
+	task(taskName, project) {
 		// save the task
 		const url = '/add'
 		const params = {
@@ -80,7 +81,8 @@ class ProGBarZ {
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify({
-				'task_name': taskName
+				'task_name':  taskName,
+				'project_id': project
 			}),
 			method: 'POST'
 		}

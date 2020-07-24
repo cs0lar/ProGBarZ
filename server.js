@@ -59,12 +59,17 @@ fastify.get('/:projectId', async (request, reply) => {
 fastify.post('/add', async (request, reply) => {
 	// retrieve the task name 
 	const taskName = request.body.task_name
+	// retrieve the project id
+	const projectId = request.body.project_id
 	// create and persist a new task
 	const sql = 'INSERT INTO pgbz_task(name, description, created_at, updated_at, progress) VALUES (?, ?, ?, ?, ?)'
 	const now = new Date().getTime()
 
 	try {
 		await fastify.db.run(sql, [taskName, '', now, now, 0])
+		// update the link between project and task
+		await fastify.db.run('INSERT INTO pgbz_project_tasks (project_id, task_id) VALUES (?, last_insert_rowid())', [projectId])
+		
 		reply.code(201)
 			 .header('Content-Type', 'application/json; charset=utf-8')
 			 .send({msg: 'OK'})	
@@ -80,11 +85,13 @@ fastify.post('/add', async (request, reply) => {
 })
 
 fastify.post('/remove', async (request, reply) => {
-	const taskId = request.body.task_id
-	const sql = 'DELETE from pgbz_task WHERE id=?'
+	const taskId    = request.body.task_id
+	const projectId = request.body.project_id
+	const sql       = 'DELETE FROM pgbz_task WHERE id=?'
 
 	try {
 		await fastify.db.run(sql, taskId)
+		await fastify.db.run('DELETE FROM pgbz_project_tasks WHERE task_id=?', taskId)
 		reply.code(200)
 		     .header('Content-Type', 'application/json; charset=utf-8')
 			 .send({msg: 'OK'})
