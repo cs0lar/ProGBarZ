@@ -2,12 +2,13 @@
     <a href="javascript:void(0)" class="closebtn" onclick="PgbZ.closeNav()">&laquo;</a>
     <for|project| of=input.projects>
         <if(input.selected && project.id == input.selected)>
-            <a class="selected" data-project=`${project.id}` href=`/${project.id}`>${project.name}</a>
+            <a class="selected" data-project=`${project.id}` href=`/${project.id}`>&raquo; ${project.name} &laquo;</a>
         </if>
         <else>
             <a href=`/${project.id}`>${project.name}</a>
         </else>
     </for>
+    <glyph glyph="+" tip="add" size="xlarge" id="prog-project-add" tippos="bottom right"/>
 </div>
 
 <span class="sidenavopen" onclick="PgbZ.openNav()">&nbsp;&nbsp;&raquo;</span>

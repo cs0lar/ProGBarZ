@@ -19,11 +19,16 @@ class ProGBarZ {
 					self.increment(selector, value, rowId)
 				}
 			} )
-			// add handler for add new task button
+			// add handler for add-new-task button
 			document.querySelector('#prog-add').onclick = (event) => {
 				var taskName = prompt('Enter task: ')
 				const projectId = document.querySelector(".selected").getAttribute('data-project')
 				return self.task(taskName, projectId)
+			}
+			// add handler for add-new-project button
+			document.querySelector('#prog-project-add').onclick = (event) => {
+				var projName = prompt('Enter project: ')
+				return self.project(projName)
 			}
 			// create and add all the bars in the DOM
 			var containers = document.querySelectorAll("[id^='prog-progress-']")
@@ -51,7 +56,7 @@ class ProGBarZ {
 	}
 
 	remove(taskId) {
-		const url  = '/remove'
+		const url  = '/tasks/remove'
 		const params = {
 			headers: {
 				'Content-Type': 'application/json'
@@ -75,7 +80,7 @@ class ProGBarZ {
 
 	task(taskName, project) {
 		// save the task
-		const url = '/add'
+		const url = '/tasks/add'
 		const params = {
 			headers: {
 				'Content-Type': 'application/json'
@@ -89,6 +94,29 @@ class ProGBarZ {
 		fetch(url, params)
 		.then( (data) => { return data.json() } )
 		.then( (res) => { 
+			if (res.hasOwnProperty('msg') && res.msg == 'OK')
+				window.location.href = '/'
+		} )
+		.catch( (err) => {
+			console.log(err)
+		} )
+	}
+
+	project(projName) {
+		// save the new project
+		const url = '/projects/add'
+		const params = {
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				'project_name': projName
+			}),
+			method: 'POST'
+		}
+		fetch(url, params)
+		.then( (data) => { return data.json() } )
+		.then( (res) => {
 			if (res.hasOwnProperty('msg') && res.msg == 'OK')
 				window.location.href = '/'
 		} )
@@ -161,7 +189,7 @@ class ProGBarZ {
 	}
 
 	update(taskId, taskName) {
-		const url = '/update'
+		const url = '/tasks/update'
 		const params = {
 			headers: {
 				'Content-Type': 'application/json'

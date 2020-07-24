@@ -56,7 +56,7 @@ fastify.get('/:projectId', async (request, reply) => {
 	return reply
 })
 
-fastify.post('/add', async (request, reply) => {
+fastify.post('/tasks/add', async (request, reply) => {
 	// retrieve the task name 
 	const taskName = request.body.task_name
 	// retrieve the project id
@@ -84,7 +84,28 @@ fastify.post('/add', async (request, reply) => {
 	return reply
 })
 
-fastify.post('/remove', async (request, reply) => {
+fastify.post('/projects/add', async (request, reply) => {
+	// retrieve project name
+	const projName = request.body.project_name
+	const now      = new Date().getTime()
+	const sql      = 'INSERT INTO pgbz_project (name, created_at, updated_at) VALUES (?, ?, ?)'
+
+	try {
+		await fastify.db.run(sql, [projName, now, now])
+
+		reply.code(201)
+		     .header('Content-Type', 'application/json; charset=utf-8')
+		     .send({msg: 'OK'})
+	}
+	catch (err) {
+		fastify.log.error(err)
+		reply.code(500)
+		     .type('text/plain')
+		     .send(err.message)
+	}
+})
+
+fastify.post('/tasks/remove', async (request, reply) => {
 	const taskId    = request.body.task_id
 	const projectId = request.body.project_id
 	const sql       = 'DELETE FROM pgbz_task WHERE id=?'
@@ -106,17 +127,18 @@ fastify.post('/remove', async (request, reply) => {
 	return reply
 })
 
-fastify.post('/update', async(request, reply) => {
+fastify.post('/tasks/update', async(request, reply) => {
 	const taskProgress = request.body.task_progress
 	const taskName     = request.body.task_name
 	const taskId       = request.body.task_id
 	const targetField  = taskName ? 'name' : 'progress'
 	const target       = taskName || taskProgress
+	const now          = new Date().getTime()
 
-	const sql = `UPDATE pgbz_task SET ${targetField}=? WHERE id=?`
+	const sql = `UPDATE pgbz_task SET ${targetField}=?, updated_at=? WHERE id=?`
 
 	try {
-		await fastify.db.run(sql, [target, taskId])
+		await fastify.db.run(sql, [target, now, taskId])
 		reply.code(200)
 		     .header('Content-Type', 'application/json; charset=utf-8')
 			 .send({msg: 'OK'})
