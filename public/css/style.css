@@ -102,7 +102,7 @@ pre.progbarz-title code {
   top: 200px;
   left: 0;
   overflow-x: hidden;
-  transition: 0.5s;
+  transition: 0.3s;
   padding-top: 60px;
   font-family: 'Saira Condensed', sans-serif;
 }
@@ -129,6 +129,10 @@ pre.progbarz-title code {
   color: red;
 }
 
+.container.projects {
+  padding-top: 20px;
+}
+
 .sidenav a.selected {
   font-weight: bold;
 }
@@ -136,7 +140,7 @@ pre.progbarz-title code {
 .sidenav .closebtn {
   position: absolute;
   top: 0;
-  right: 25px;
+  right: 10px;
   font-size: 36px;
   margin-left: 50px;
   color: rgb(153, 153, 153); 
@@ -149,5 +153,5 @@ pre.progbarz-title code {
 
 #prog-project-add {
     right: 25px;
-    margin-left: 170px;
+    margin-left: 237px;
 }

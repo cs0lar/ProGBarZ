@@ -1,13 +1,22 @@
 <div id="prog-projects-sidenav" class="sidenav projects">
     <a href="javascript:void(0)" class="closebtn" onclick="PgbZ.closeNav()">&laquo;</a>
-    <for|project| of=input.projects>
-        <if(input.selected && project.id == input.selected)>
-    		<a class="selected proj-editable" contenteditable="true" data-project=`${project.id}` href=`/${project.id}`>${project.name}</a>
-        </if>
-        <else>
-            <a href=`/${project.id}`>${project.name}</a>
-        </else>
-    </for>
+    <div class="container projects">
+        <for|project| of=input.projects>
+            <div class="row">
+                <div class="column column-80">
+                    <if(input.selected && project.id == input.selected)>
+                		<a class="selected proj-editable" contenteditable="true" data-project=`${project.id}` href=`/${project.id}`>${project.name}</a>
+                    </if>
+                    <else>
+                        <a href=`/${project.id}`>${project.name}</a>
+                    </else>
+                </div>
+                <div class="column column-20">
+                    <glyph glyph="×" tip="archive" id=`prog-archive-${project.id}` project=`${project.id}` size="xlarge" tippos="top"/>
+                </div>
+            </div>
+        </for>
+    </div>
     <glyph glyph="+" tip="add" size="xlarge" id="prog-project-add" tippos="bottom right"/>
 </div>
 

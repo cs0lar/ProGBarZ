@@ -35,14 +35,24 @@ class ProGBarZ {
 			containers.forEach( (e) => {
 				self.add(`#${e.id}`, e.getAttribute('data-progress'))
 			} )
-			// delete handler
+			// task delete handler
 			var remove = document.querySelectorAll("[id^='prog-remove-']")
 			remove.forEach( (e) => {
 				e.onclick = (event) => {
 					var taskId = e.getAttribute('data-task')
 					return self.remove(taskId)
 				}
-			} )			
+			} )		
+			// project archive handler
+			var archive = document.querySelectorAll("[id^='prog-archive-']")
+			archive.forEach( (e) => {
+				e.onclick = (event) => {
+					var projectId = e.getAttribute('data-project')
+					var confirmation = confirm('Are you sure you want to archive this Project?')
+					if (confirmation == true)
+						return self.archive(projectId)
+				}
+			} )
 			// task name edit handler
 			var editable = document.querySelectorAll('.editable')
 			editable.forEach( (e) => {
@@ -72,6 +82,30 @@ class ProGBarZ {
 			},
 			body: JSON.stringify({
 				'task_id': taskId
+			}),
+			method: 'POST'
+		}
+
+		fetch(url, params)
+		.then( (data) => { return data.json() } )
+		.then( (res) => {
+			if (res.hasOwnProperty('msg') && res.msg == 'OK')
+				window.location.href = '/'
+		} )
+		.catch( (err) => {
+			console.log(err)
+		} )
+	}
+
+	archive(projectId) {
+		const url = '/projects/update'
+		const params = {
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				'project_id': projectId,
+				'is_active' : 0
 			}),
 			method: 'POST'
 		}
@@ -238,7 +272,7 @@ class ProGBarZ {
 	}
 
 	openNav() {
-		document.getElementById('prog-projects-sidenav').style.width = '250px'
+		document.getElementById('prog-projects-sidenav').style.width = '300px'
 	}
 
 	closeNav() {

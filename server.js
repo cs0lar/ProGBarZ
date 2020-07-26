@@ -36,7 +36,7 @@ fastify.get('/:projectId', async (request, reply) => {
 	let projectId = null;
 	try {
 		// load projects
-		let sql  = 'SELECT id, name FROM pgbz_project ORDER BY name'
+		let sql  = 'SELECT id, name FROM pgbz_project WHERE is_active=1 ORDER BY name'
 		projects = await fastify.db.all(sql, []) 
 		// check if we have a project Id in the request ...
 		projectId = request.params.projectId || projects[0].id || 0
@@ -107,6 +107,10 @@ fastify.post('/projects/add', async (request, reply) => {
 	return reply
 })
 
+fastify.post('/projects/archive', async (request, reply) => {
+
+} )
+
 fastify.post('/tasks/remove', async (request, reply) => {
 	const taskId    = request.body.task_id
 	const projectId = request.body.project_id
@@ -158,12 +162,15 @@ fastify.post('/tasks/update', async(request, reply) => {
 fastify.post('/projects/update', async(request, reply) => {
 	const projectId   = request.body.project_id
 	const projectName = request.body.project_name
+	const is_active   = request.body.is_active
 	const now         = new Date().getTime()
+	const targetField = is_active === 0 ? 'is_active' : 'name'
+	const target      = is_active === 0 ? is_active : projectName
 
-	const sql = 'UPDATE pgbz_project SET name=?, updated_at=? WHERE id=?' 
+	const sql = `UPDATE pgbz_project SET ${targetField}=?, updated_at=? WHERE id=?` 
 
 	try {
-		await fastify.db.run(sql, [projectName, now, projectId])
+		await fastify.db.run(sql, [target, now, projectId])
 		reply.code(200)
 		     .header('Content-Type', 'application/json; charset=utf-8')
 			 .send({msg: 'OK'})
