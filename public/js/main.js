@@ -40,7 +40,8 @@ class ProGBarZ {
 			remove.forEach( (e) => {
 				e.onclick = (event) => {
 					var taskId = e.getAttribute('data-task')
-					return self.remove(taskId)
+					const projectId = document.querySelector(".selected").getAttribute('data-project')
+					return self.remove(taskId, projectId)
 				}
 			} )		
 			// project archive handler
@@ -74,7 +75,7 @@ class ProGBarZ {
 		}
 	}
 
-	remove(taskId) {
+	remove(taskId, projectId) {
 		const url  = '/tasks/remove'
 		const params = {
 			headers: {
@@ -90,7 +91,7 @@ class ProGBarZ {
 		.then( (data) => { return data.json() } )
 		.then( (res) => {
 			if (res.hasOwnProperty('msg') && res.msg == 'OK')
-				window.location.href = '/'
+				window.location.href = `/${projectId}`
 		} )
 		.catch( (err) => {
 			console.log(err)
@@ -138,7 +139,7 @@ class ProGBarZ {
 		.then( (data) => { return data.json() } )
 		.then( (res) => { 
 			if (res.hasOwnProperty('msg') && res.msg == 'OK')
-				window.location.href = '/'
+				window.location.href = `/${project}`
 		} )
 		.catch( (err) => {
 			console.log(err)
