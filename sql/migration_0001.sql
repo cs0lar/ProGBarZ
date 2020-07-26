@@ -1,0 +1,1 @@
+INSERT INTO pgbz_project (name, created_at, updated_at) VALUES ('Default', date('now'), date('now'));

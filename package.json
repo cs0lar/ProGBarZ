@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "test": ""
+    "test": "",
+    "migrate": "node ./sql/migrate.js"
   },
   "repository": {
     "type": "git",
@@ -30,6 +31,7 @@
     "figlet": "^1.4.0",
     "marko": "^4.22.0",
     "milligram": "^1.4.1",
+    "minimist": "^1.2.5",
     "point-of-view": "^3.8.0",
     "progressbar.js": "^1.1.0",
     "sqlite3": "^4.2.0"
