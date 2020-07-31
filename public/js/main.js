@@ -75,7 +75,10 @@ class ProGBarZ {
 			// initialise sparklines
 			var sparklines = document.querySelectorAll('.sparkline')
 			sparklines.forEach( (s) => {
-				sparkline.sparkline(s, [1, 5, 2, 4, 8, 3, 7, 9, 9, 2]);
+				var data = s.getAttribute('data-rates')
+				if (data != '')
+					data = data.split(',').map( x => parseFloat(x) )
+				sparkline.sparkline(s, data, {interactive: true});
 			} )
 		}
 	}

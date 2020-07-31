@@ -3,7 +3,7 @@ const path    = require('path')
 const dotenv  = require('dotenv')
 const figlet  = require('figlet')
 const util    = require('util')
-
+const Utils   = require('./utils')
 const text    = util.promisify(figlet.text)
 
 // load the environment
@@ -31,27 +31,34 @@ fastify.get('/:projectId', async (request, reply) => {
 	// prep title
 	const title = await text('ProGBarZ', {font: 'Lean'})
 	// prep tasks list
-	let tasks = [];
-	let projects = [];
-	let projectId = null;
+	let tasks = []
+	let projects = []
+	let projectId = null
+	let ratesByTaskId = {}
+
 	try {
 		// load projects
 		let sql  = 'SELECT id, name FROM pgbz_project WHERE is_active=1 ORDER BY name'
 		projects = await fastify.db.all(sql, []) 
-		// check if we have a project Id in the request ...
+		// check if we have a project Id in the request
+		// otherwise load tasks for first project if any
 		projectId = request.params.projectId || projects[0].id || 0
-		// ... otherwise load tasks for first project if any
 		if (projectId) {
 			// TODO: get last selected project from session or db
 			sql = 'SELECT t.id, t.name, t.progress FROM pgbz_task t, pgbz_project_tasks pt WHERE pt.project_id=? AND t.id = pt.task_id ORDER BY progress DESC'
 			tasks = await fastify.db.all(sql, [projectId])
+			// compute the progress sparklines
+			taskIdsString = tasks.map( (task) => task.id ).join(',')
+			sql = `SELECT * FROM pgbz_progress_time WHERE task_id IN (${taskIdsString}) ORDER BY task_id, t`
+			tSeriesData = await fastify.db.all(sql, [])
+			ratesByTaskId = Utils.computeProgressTimeSeries(tSeriesData)
 		}
 	}
 	catch (err) {
 		fastify.log.error(err)
 	}
 	finally {
-		reply.view('progbarz.marko', { projects: projects, tasks: tasks, title: title, selected: projectId })
+		reply.view('progbarz.marko', { projects: projects, tasks: tasks, title: title, selected: projectId, rates: ratesByTaskId })
 	}
 	return reply
 })
