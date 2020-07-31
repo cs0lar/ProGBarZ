@@ -72,6 +72,11 @@ class ProGBarZ {
 					return self.projectUpdate(projId, projName) 
 				}
 			} )
+			// initialise sparklines
+			var sparklines = document.querySelectorAll('.sparkline')
+			sparklines.forEach( (s) => {
+				sparkline.sparkline(s, [1, 5, 2, 4, 8, 3, 7, 9, 9, 2]);
+			} )
 		}
 	}
 
