@@ -16,6 +16,7 @@ ProGBarZ relies on the following frameworks:
 2. The [marko](https://markojs.com/) templating engine
 3. The [progressbar.js](https://kimmobrunfeldt.github.io/progressbar.js/) library for shaped progress bars
 4. The [node-sqlite3](https://github.com/mapbox/node-sqlite3) client library to interact with the SQLite persistence engine
+5. The [sparkline](https://github.com/fnando/sparkline) library to draw the  progress rate graph for each task
 
 # Migrations
 ProGBarZ supports a very simple strategy for database migrations via the command:
@@ -34,3 +35,5 @@ Run all migrations found in the project's `sql` directory starting from `migrati
 ```sh
 npm run migrate -- --db=/opt/mydb.sqlite --start=12
 ```
+# Sparklines
+Sparklines next to each task highlight the progress rate for each task. Large spikes denote that large chunks of progress were logged in a relatively short amount of time - the higher the value, the faster you are progressing through your task.
