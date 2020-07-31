@@ -69,7 +69,7 @@ fastify.post('/tasks/add', async (request, reply) => {
 		await fastify.db.run(sql, [taskName, '', now, now, 0])
 		// update the link between project and task
 		await fastify.db.run('INSERT INTO pgbz_project_tasks (project_id, task_id) VALUES (?, last_insert_rowid())', [projectId])
-		
+
 		reply.code(201)
 			 .header('Content-Type', 'application/json; charset=utf-8')
 			 .send({msg: 'OK'})	
@@ -107,10 +107,6 @@ fastify.post('/projects/add', async (request, reply) => {
 	return reply
 })
 
-fastify.post('/projects/archive', async (request, reply) => {
-
-} )
-
 fastify.post('/tasks/remove', async (request, reply) => {
 	const taskId    = request.body.task_id
 	const projectId = request.body.project_id
@@ -145,6 +141,11 @@ fastify.post('/tasks/update', async(request, reply) => {
 
 	try {
 		await fastify.db.run(sql, [target, now, taskId])
+		// if this is a progress update
+		// add this data point to the task progress time series
+		if (targetField == 'progress')
+			await fastify.db.run('INSERT INTO pgbz_progress_time (task_id, progress_at_t, t) VALUES (?, ?, ?)', [taskId, target, now])
+		
 		reply.code(200)
 		     .header('Content-Type', 'application/json; charset=utf-8')
 			 .send({msg: 'OK'})
