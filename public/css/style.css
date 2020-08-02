@@ -5,14 +5,16 @@ body {
 pre.progbarz-title {
 	border-left-color: transparent;
 	background: transparent;
+  margin-bottom: -30px;
 }	
 pre.progbarz-title code {
 	background: transparent;
 	display: flex;
-		justify-content: center;
-		align-items: center;
-		font-size: 60%;
+	justify-content: center;
+	align-items: center;
+	font-size: 60%;
 }
+
 .button.button-clear.glyph {
 	font-size: large;
 	color: rgb(153, 153, 153);  			
@@ -63,6 +65,10 @@ pre.progbarz-title code {
   	margin-left: -60px;
 }
 
+.tooltip .tooltiptext.bottom.right {
+    left: 99%;
+}
+
 .tooltip .tooltiptext::after {
   	content: "";
   	position: absolute;
@@ -85,4 +91,131 @@ pre.progbarz-title code {
 
 .row {
 	padding: 10px;
+}
+
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  background-color: white;
+  z-index: 1;
+  top: 200px;
+  left: 0;
+  overflow-x: hidden;
+  transition: 0.3s;
+  padding-top: 60px;
+  font-family: 'Saira Condensed', sans-serif;
+}
+
+.sidenav a {
+  padding: 8px  8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  display: block;
+  transition: 0.3s;
+  color: rgb(153, 153, 153); 
+}
+
+.sidenavopen {
+  font-size: 36px;
+  top: 200px;
+  color: rgb(153, 153, 153); 
+  cursor:pointer;
+  font-family: 'Saira Condensed', sans-serif;
+  text-decoration: none;
+}
+
+.sidenav a:hover {
+  color: red;
+}
+
+.container.projects {
+  padding-top: 20px;
+}
+
+.sidenav a.selected {
+  font-weight: bold;
+}
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 10px;
+  font-size: 36px;
+  margin-left: 50px;
+  color: rgb(153, 153, 153); 
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav { padding-top: 15px; }
+    .sidenav a { font-size: 18px; }
+}
+
+#prog-project-add {
+    right: 25px;
+    margin-left: 237px;
+}
+
+.sparkline {
+  fill: none;
+}
+
+.sparkline--red {
+  stroke: #dc2b33;
+}
+
+.sparkline--red.sparkline--filled {
+  fill: rgba(220, 43, 51, 0.3);
+}
+
+.sparkline--blue {
+  stroke: #3d85de;
+}
+
+.sparkline--blue.sparkline--filled {
+  fill: rgba(61, 133, 222, 0.3);
+}
+
+.sparkline--green {
+  stroke: #4c9b4c;
+}
+
+.sparkline--green.sparkline--filled {
+  fill: rgba(76, 155, 76, 0.3);
+}
+
+.sparkline--gray {
+  stroke: #777;
+}
+
+.sparkline--gray.sparkline--filled {
+  fill: rgba(119, 119, 119, 0.3);
+}
+
+.sparkline--orange {
+  stroke: #e36023;
+}
+
+.sparkline--orange.sparkline--filled {
+  fill: rgba(227, 96, 35, 0.3);
+}
+
+.sparkline--purple {
+  stroke: #573585;
+}
+
+.sparkline--purple.sparkline--filled {
+  fill: rgba(87, 53, 133, 0.3);
+}
+
+.sparkline--yellow {
+  stroke: #fdd700;
+}
+
+.sparkline--yellow.sparkline--filled {
+  fill: rgba(253, 215, 0, 0.3);
+}
+
+.sparkline--pink {
+  stroke: #db3b9e;
 }

@@ -1,5 +1,4 @@
 <div class="container tasks">
-
     <for|task| of=input.tasks>
         <div class="row" id=`prog-row-${task.id}`>
             <div class="column editable" contenteditable="true" data-task=`${task.id}`>${task.name}</div>
@@ -15,6 +14,7 @@
             	<glyph glyph=">>" id="prog-incr+5" tip="+5%" tippos="top"/>
             </div>
             <div class="column left">
+                <sparkline width="100" height="30" stroke_width="2" rates=`${input.rates[task.id]}`/>
             	<glyph glyph="×" tip="delete" id=`prog-remove-${task.id}` task=`${task.id}` size="xlarge" tippos="top"/>
             </div>
         </div>
