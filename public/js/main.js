@@ -72,6 +72,14 @@ class ProGBarZ {
 					return self.projectUpdate(projId, projName) 
 				}
 			} )
+			// initialise sparklines
+			var sparklines = document.querySelectorAll('.sparkline')
+			sparklines.forEach( (s) => {
+				var data = s.getAttribute('data-rates')
+				if (data != '')
+					data = data.split(',').map( x => parseFloat(x) )
+				sparkline.sparkline(s, data, {interactive: true});
+			} )
 		}
 	}
 

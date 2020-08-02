@@ -155,3 +155,67 @@ pre.progbarz-title code {
     right: 25px;
     margin-left: 237px;
 }
+
+.sparkline {
+  fill: none;
+}
+
+.sparkline--red {
+  stroke: #dc2b33;
+}
+
+.sparkline--red.sparkline--filled {
+  fill: rgba(220, 43, 51, 0.3);
+}
+
+.sparkline--blue {
+  stroke: #3d85de;
+}
+
+.sparkline--blue.sparkline--filled {
+  fill: rgba(61, 133, 222, 0.3);
+}
+
+.sparkline--green {
+  stroke: #4c9b4c;
+}
+
+.sparkline--green.sparkline--filled {
+  fill: rgba(76, 155, 76, 0.3);
+}
+
+.sparkline--gray {
+  stroke: #777;
+}
+
+.sparkline--gray.sparkline--filled {
+  fill: rgba(119, 119, 119, 0.3);
+}
+
+.sparkline--orange {
+  stroke: #e36023;
+}
+
+.sparkline--orange.sparkline--filled {
+  fill: rgba(227, 96, 35, 0.3);
+}
+
+.sparkline--purple {
+  stroke: #573585;
+}
+
+.sparkline--purple.sparkline--filled {
+  fill: rgba(87, 53, 133, 0.3);
+}
+
+.sparkline--yellow {
+  stroke: #fdd700;
+}
+
+.sparkline--yellow.sparkline--filled {
+  fill: rgba(253, 215, 0, 0.3);
+}
+
+.sparkline--pink {
+  stroke: #db3b9e;
+}

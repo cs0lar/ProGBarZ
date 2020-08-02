@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/cs0lar/ProGBarZ#readme",
   "dependencies": {
+    "@fnando/sparkline": "^0.3.10",
     "dotenv": "^8.2.0",
     "fastify": "^2.15.0",
     "fastify-plugin": "^1.6.1",
@@ -34,6 +35,7 @@
     "minimist": "^1.2.5",
     "point-of-view": "^3.8.0",
     "progressbar.js": "^1.1.0",
-    "sqlite3": "^4.2.0"
+    "sqlite3": "^4.2.0",
+    "underscore": "^1.10.2"
   }
 }
