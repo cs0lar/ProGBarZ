@@ -122,6 +122,7 @@ fastify.post('/tasks/remove', async (request, reply) => {
 	try {
 		await fastify.db.run(sql, taskId)
 		await fastify.db.run('DELETE FROM pgbz_project_tasks WHERE task_id=?', taskId)
+		await fastify.db.run('DELETE FROM pgbz_progress_time WHERE task_id=?', taskId)
 		reply.code(200)
 		     .header('Content-Type', 'application/json; charset=utf-8')
 			 .send({msg: 'OK'})
