@@ -196,7 +196,7 @@ fastify.post('/projects/update', async(request, reply) => {
 
 const start = async () => {
 	try {
-		await fastify.listen(3000)
+		await fastify.listen(process.env.APP_PORT)
 		fastify.log.info(`server listening on ${fastify.server.address().port}`)
 	}
 	catch (err) {
