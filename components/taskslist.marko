@@ -1,4 +1,15 @@
 <div class="container tasks">
+    <if(input.proj_duration > 0)>
+        <div class="row" id="prog-row-duration">
+            <div class="column"></div>
+            <div class="column"></div>
+            <div class="column">
+                <div class="duration" id="prog-duration" data-elapsed=`${input.proj_elapsed}` data-duration=`${input.proj_duration}`/>
+            </div>
+            <div class="column"></div>
+            <div class="column"></div>
+        </div>
+    </if>
     <for|task| of=input.tasks>
         <div class="row" id=`prog-row-${task.id}`>
             <div class="column editable" contenteditable="true" data-task=`${task.id}`>${task.name}</div>

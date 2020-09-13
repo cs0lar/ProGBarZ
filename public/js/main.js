@@ -28,13 +28,20 @@ class ProGBarZ {
 			// add handler for add-new-project button
 			document.querySelector('#prog-project-add').onclick = (event) => {
 				var projName = prompt('Enter project: ')
-				return self.project(projName)
+				var projDuration = prompt('Enter project duration in days: ')
+				projDuration = parseInt(projDuration) || 0
+				return self.project(projName, projDuration)
 			}
 			// create and add all the bars in the DOM
 			var containers = document.querySelectorAll("[id^='prog-progress-']")
 			containers.forEach( (e) => {
 				self.add(`#${e.id}`, e.getAttribute('data-progress'))
 			} )
+			// create and add the duration bar in the DOM
+			var duration = document.querySelector('#prog-duration')
+			if (duration) {
+				self.duration(`#${duration.id}`, duration.getAttribute('data-duration'), duration.getAttribute('data-elapsed'))
+			}
 			// task delete handler
 			var remove = document.querySelectorAll("[id^='prog-remove-']")
 			remove.forEach( (e) => {
@@ -154,7 +161,7 @@ class ProGBarZ {
 		} )
 	}
 
-	project(projName) {
+	project(projName, projDuration) {
 		// save the new project
 		const url = '/projects/add'
 		const params = {
@@ -162,7 +169,8 @@ class ProGBarZ {
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify({
-				'project_name': projName
+				'project_name': projName,
+				'project_duration': projDuration
 			}),
 			method: 'POST'
 		}
@@ -207,6 +215,41 @@ class ProGBarZ {
 		})
 		bar.animate(value * 0.01);
 		this.barz[selector] = {bar: bar, value: value * 0.01} 
+	}
+
+	duration(selector, duration, elapsed) {
+		console.log(duration, elapsed, elapsed/duration)
+		var bar = new ProgressBar.SemiCircle(selector, {
+		  	strokeWidth: 6,
+			color: '#FFEA82',
+		    trailColor: '#eee',
+		    trailWidth: 1,
+		    easing: 'easeInOut',
+		    duration: 1400,
+		    svgStyle: null,
+		    text: {
+		    	value: '',
+		    	alignToBottom: true
+		  	},
+		  	from: {color: '#FFEA82'},
+		  	to: {color: '#ED6A5A'},
+		  	// Set default step function for all animate calls
+		  	step: (state, bar) => {
+    			bar.path.setAttribute('stroke', state.color);
+    			var value = Math.round(bar.value() * 100);
+    			if (value === 0) {
+      				bar.setText('');
+    			} else {
+      			bar.setText(value + '%');
+    			}
+    			bar.text.style.color = state.color;
+    		}
+		})
+		bar.text.style.fontSize   = '3rem';
+		bar.text.style.fontStyle  = 'italic';
+		bar.text.style.fontWeight = 'bold';
+
+		bar.animate(elapsed/duration); 
 	}
 
 	increment(selector, percent, taskId) {
