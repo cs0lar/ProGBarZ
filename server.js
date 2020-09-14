@@ -35,6 +35,8 @@ fastify.get('/:projectId', async (request, reply) => {
 	let projects = []
 	let projectId = null
 	let ratesByTaskId = {}
+	let duration = 0
+	let elapsed  = 0
 
 	try {
 		// load projects
@@ -45,20 +47,37 @@ fastify.get('/:projectId', async (request, reply) => {
 		projectId = request.params.projectId || projects[0].id || 0
 		if (projectId) {
 			// TODO: get last selected project from session or db
-			sql = 'SELECT t.id, t.name, t.progress FROM pgbz_task t, pgbz_project_tasks pt WHERE pt.project_id=? AND t.id = pt.task_id ORDER BY progress DESC'
+			sql = 'SELECT t.id, t.name, t.progress, p.duration as proj_duration, p.created_at as proj_created_at FROM pgbz_task t, pgbz_project p, pgbz_project_tasks pt WHERE p.id = pt.project_id AND pt.project_id=? AND t.id = pt.task_id ORDER BY progress DESC'
 			tasks = await fastify.db.all(sql, [projectId])
 			// compute the progress sparklines
 			taskIdsString = tasks.map( (task) => task.id ).join(',')
 			sql = `SELECT * FROM pgbz_progress_time WHERE task_id IN (${taskIdsString}) ORDER BY task_id, t`
 			tSeriesData = await fastify.db.all(sql, [])
 			ratesByTaskId = Utils.computeProgressTimeSeries(tSeriesData)
+			// compute elapsed project days	
+			if (tasks.length > 0) {
+				duration = tasks[0].proj_duration
+				if (duration > 0) {
+					let d1 = new Date().getTime()
+					let d2 = parseFloat(tasks[0].proj_created_at)
+					elapsed = (d1 - d2) / (1000 * 3600 * 24); 
+				}
+			}
 		}
 	}
 	catch (err) {
 		fastify.log.error(err)
 	}
 	finally {
-		reply.view('progbarz.marko', { projects: projects, tasks: tasks, title: title, selected: projectId, rates: ratesByTaskId })
+		reply.view('progbarz.marko', { 
+			projects: projects, 
+			tasks: tasks, 
+			title: title, 
+			selected: projectId, 
+			rates: ratesByTaskId, 
+			proj_duration: duration, 
+			proj_elapsed: elapsed 
+		})
 	}
 	return reply
 })
@@ -93,12 +112,13 @@ fastify.post('/tasks/add', async (request, reply) => {
 
 fastify.post('/projects/add', async (request, reply) => {
 	// retrieve project name
-	const projName = request.body.project_name
-	const now      = new Date().getTime()
-	const sql      = 'INSERT INTO pgbz_project (name, created_at, updated_at) VALUES (?, ?, ?)'
+	const projName     = request.body.project_name
+	const projDuration = request.body.project_duration
+	const now          = new Date().getTime()
+	const sql          = 'INSERT INTO pgbz_project (name, duration, created_at, updated_at) VALUES (?, ?, ?, ?)'
 
 	try {
-		await fastify.db.run(sql, [projName, now, now])
+		await fastify.db.run(sql, [projName, projDuration, now, now])
 
 		reply.code(201)
 		     .header('Content-Type', 'application/json; charset=utf-8')
@@ -122,6 +142,7 @@ fastify.post('/tasks/remove', async (request, reply) => {
 	try {
 		await fastify.db.run(sql, taskId)
 		await fastify.db.run('DELETE FROM pgbz_project_tasks WHERE task_id=?', taskId)
+		await fastify.db.run('DELETE FROM pgbz_progress_time WHERE task_id=?', taskId)
 		reply.code(200)
 		     .header('Content-Type', 'application/json; charset=utf-8')
 			 .send({msg: 'OK'})
@@ -195,7 +216,7 @@ fastify.post('/projects/update', async(request, reply) => {
 
 const start = async () => {
 	try {
-		await fastify.listen(3000)
+		await fastify.listen(process.env.APP_PORT)
 		fastify.log.info(`server listening on ${fastify.server.address().port}`)
 	}
 	catch (err) {
