@@ -5,7 +5,7 @@ body {
 pre.progbarz-title {
 	border-left-color: transparent;
 	background: transparent;
-  margin-bottom: -30px;
+  margin-bottom: -80px;
 }	
 pre.progbarz-title code {
 	background: transparent;
@@ -99,7 +99,7 @@ pre.progbarz-title code {
   position: fixed;
   background-color: white;
   z-index: 1;
-  top: 200px;
+  top: 143px;
   left: 0;
   overflow-x: hidden;
   transition: 0.3s;

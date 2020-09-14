@@ -35,5 +35,11 @@ Run all migrations found in the project's `sql` directory starting from `migrati
 ```sh
 npm run migrate -- --db=/opt/mydb.sqlite --start=12
 ```
-# Sparklines
+# UI
+## Project overall progress
+When creating a new project from the sidenav bar you are prompted twice for input: the first prompt asks for the project's name, the second for the duration, in days, of the project if known - it may be left blank. If a duration in days is specified, ProGBarZ will track the number of days elapsed since creation of the project and displays this as a percentage relative to project duration as a semicircle progress bar above the task list.
+
+## Sparklines
 Sparklines next to each task highlight the progress rate for each task. Large spikes denote that large chunks of progress were logged in a relatively short amount of time - the higher the value, the faster you are progressing through your task.
+
+
