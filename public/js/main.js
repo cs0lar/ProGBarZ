@@ -50,7 +50,7 @@ class ProGBarZ {
 					const projectId = document.querySelector(".selected").getAttribute('data-project')
 					return self.remove(taskId, projectId)
 				}
-			} )		
+			} )
 			// project archive handler
 			var archive = document.querySelectorAll("[id^='prog-archive-']")
 			archive.forEach( (e) => {
@@ -69,14 +69,14 @@ class ProGBarZ {
 					var taskName = e.textContent
 					return self.update(taskId, taskName)
 				}
-			} )			
+			} )
 			// project name edit handler
 			var editableProj = document.querySelectorAll('.proj-editable')
 			editableProj.forEach( (e) => {
 				e.onblur = (event) => {
 					var projId   = e.getAttribute('data-project')
 					var projName = e.textContent
-					return self.projectUpdate(projId, projName) 
+					return self.projectUpdate(projId, projName)
 				}
 			} )
 			// initialise sparklines
@@ -152,7 +152,7 @@ class ProGBarZ {
 		}
 		fetch(url, params)
 		.then( (data) => { return data.json() } )
-		.then( (res) => { 
+		.then( (res) => {
 			if (res.hasOwnProperty('msg') && res.msg == 'OK')
 				window.location.href = `/${project}`
 		} )
@@ -214,7 +214,7 @@ class ProGBarZ {
 		  	}
 		})
 		bar.animate(value * 0.01);
-		this.barz[selector] = {bar: bar, value: value * 0.01} 
+		this.barz[selector] = {bar: bar, value: value * 0.01}
 	}
 
 	duration(selector, duration, elapsed) {
@@ -240,7 +240,7 @@ class ProGBarZ {
     			if (value === 0) {
       				bar.setText('');
     			} else {
-      			bar.setText(value + '%');
+      			bar.setText(Math.min(value, 100) + '%');
     			}
     			bar.text.style.color = state.color;
     		}
@@ -249,7 +249,7 @@ class ProGBarZ {
 		bar.text.style.fontStyle  = 'italic';
 		bar.text.style.fontWeight = 'bold';
 
-		bar.animate(elapsed/duration); 
+		bar.animate(elapsed/duration);
 	}
 
 	increment(selector, percent, taskId) {
