@@ -249,7 +249,7 @@ class ProGBarZ {
 		bar.text.style.fontStyle  = 'italic';
 		bar.text.style.fontWeight = 'bold';
 
-		bar.animate(elapsed/duration);
+		bar.animate(Math.min(elapsed, duration)/duration);
 	}
 
 	increment(selector, percent, taskId) {
