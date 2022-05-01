@@ -218,7 +218,7 @@ class ProGBarZ {
 	}
 
 	duration(selector, duration, elapsed) {
-		console.log(duration, elapsed, elapsed/duration)
+
 		var bar = new ProgressBar.SemiCircle(selector, {
 		  	strokeWidth: 6,
 			color: '#FFEA82',

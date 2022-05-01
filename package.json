@@ -1,6 +1,6 @@
 {
   "name": "progbarz",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Create task lists with associated progress bars",
   "main": "server.js",
   "scripts": {
@@ -24,18 +24,17 @@
   },
   "homepage": "https://github.com/cs0lar/ProGBarZ#readme",
   "dependencies": {
-    "@fnando/sparkline": "^0.3.10",
-    "dotenv": "^8.2.0",
-    "fastify": "^2.15.0",
-    "fastify-plugin": "^1.6.1",
-    "fastify-static": "^2.7.0",
-    "figlet": "^1.4.0",
-    "marko": "^4.22.0",
+    "@fastify/static": "^5.0.0",
+    "dotenv": "^16.0.0",
+    "fastify": "^3.29.0",
+    "fastify-plugin": "^3.0.1",
+    "figlet": "^1.5.2",
+    "liquidjs": "^9.37.0",
     "milligram": "^1.4.1",
-    "minimist": "^1.2.5",
-    "point-of-view": "^3.8.0",
+    "minimist": "^1.2.6",
+    "point-of-view": "^5.2.0",
     "progressbar.js": "^1.1.0",
-    "sqlite3": "^4.2.0",
-    "underscore": "^1.10.2"
+    "sqlite3": "^5.0.6",
+    "underscore": "^1.13.3"
   }
 }

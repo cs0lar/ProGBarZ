@@ -13,7 +13,7 @@ Create task lists with associated progress bars.
 # Dependencies
 ProGBarZ relies on the following frameworks:
 1. The [fastify](https://www.fastify.io/) web framework for Node.js
-2. The [marko](https://markojs.com/) templating engine
+2. The [liquidjs](https://liquidjs.com/) templating engine
 3. The [progressbar.js](https://kimmobrunfeldt.github.io/progressbar.js/) library for shaped progress bars
 4. The [node-sqlite3](https://github.com/mapbox/node-sqlite3) client library to interact with the SQLite persistence engine
 5. The [sparkline](https://github.com/fnando/sparkline) library to draw the  progress rate graph for each task
