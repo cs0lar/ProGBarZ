@@ -29,7 +29,7 @@
     "fastify": "^3.29.0",
     "fastify-plugin": "^3.0.1",
     "figlet": "^1.5.2",
-    "liquidjs": "^9.37.0",
+    "liquidjs": "^10.0.0",
     "milligram": "^1.4.1",
     "minimist": "^1.2.6",
     "point-of-view": "^5.2.0",
